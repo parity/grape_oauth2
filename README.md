@@ -5,7 +5,7 @@
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](#license)
 
 This gem adds a flexible OAuth2 ([RFC 6749](http://www.rfc-editor.org/rfc/rfc6749.txt)) server authentication and
-endpoints protection to your [Grape](https://github.com/ruby-grape/grape) API project with any ORM/ODM/PORO.
+endpoints protection to your [Grape](https://github.com/ruby-grape/grape) API project with any ORM / ODM / PORO.
 
 **Currently under development**.
 
