@@ -37,6 +37,7 @@ require 'grape_oauth2/strategies/authorization_code'
 require 'grape_oauth2/strategies/password'
 require 'grape_oauth2/strategies/client_credentials'
 require 'grape_oauth2/strategies/refresh_token'
+require 'grape_oauth2/strategies/social_login'
 
 # Generators
 require 'grape_oauth2/generators/base'
