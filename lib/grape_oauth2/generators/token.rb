@@ -41,7 +41,7 @@ module Grape
           # @param response [Rack::Response] response object
           #
           def execute_default(request, response)
-            strategy = find_strategy(request.grant_type) || request.invalid_grant!
+            strategy = find_strategy(request.grant_type)
             response.access_token = strategy.process(request)
           end
 
@@ -50,7 +50,7 @@ module Grape
           # @param grant_type [Symbol]
           #   grant type value
           #
-          # @return [Password, ClientCredentials, RefreshToken]
+          # @return [Password, ClientCredentials, RefreshToken SocialLogin]
           #   strategy class
           #
           def find_strategy(grant_type)
