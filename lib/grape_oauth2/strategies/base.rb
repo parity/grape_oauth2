@@ -15,6 +15,11 @@ module Grape
           def authenticate_resource_owner(client, request)
             config.resource_owner_class.oauth_authenticate(client, request.username, request.password)
           end
+          
+          # Authenticates Resource Owner from the request via Social Login.
+          def authenticate_resource_owner_social(client, request)
+            config.resource_owner_class.oauth_authenticate_social(client, request.email, request.provider, request.uid, request.social_access_token)
+          end
 
           # Short getter for Grape::OAuth2 configuration
           def config
