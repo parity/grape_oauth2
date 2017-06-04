@@ -19,7 +19,7 @@ module Grape
           #
           def generate_for(env, &_block)
             token = Rack::OAuth2::Server::Token.new do |request, response|
-              #request.unsupported_grant_type! unless allowed_grants.include?(request.grant_type.to_s)
+              request.unsupported_grant_type! unless allowed_grants.include?(request.grant_type.to_s)
 
               if block_given?
                 yield request, response
