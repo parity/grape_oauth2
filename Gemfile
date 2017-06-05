@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'grape', '~> 0.16'
-gem 'rack-oauth2'
+gem 'rack-oauth2', git: 'https://github.com/parity/rack-oauth2.git'
 
 gem 'activerecord'
 gem 'bcrypt'
