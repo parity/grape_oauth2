@@ -111,7 +111,7 @@ Grape::OAuth2.configure do |config|
   # config.authorization_code_lifetime = 7200 # in seconds (2.hours for Rails)
 
   # Allowed OAuth2 Authorization Grants (default is %w(password client_credentials)
-  config.allowed_grant_types = %w(password client_credentials refresh_token)
+  config.allowed_grant_types = %w(password client_credentials refresh_token social_login)
 
   # Issue access tokens with refresh token (default is false)
   config.issue_refresh_token = true
