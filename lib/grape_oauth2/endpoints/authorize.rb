@@ -7,7 +7,9 @@ module Grape
         helpers Grape::OAuth2::Helpers::OAuthParams
 
         namespace :oauth do
-          desc 'OAuth 2.0 Authorization Endpoint'
+          desc 'OAuth 2.0 Authorization Endpoint', {
+            hidden: true
+          }
 
           params do
             use :oauth_authorization_params

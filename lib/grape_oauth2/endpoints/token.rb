@@ -9,7 +9,11 @@ module Grape
         namespace :oauth do
           # @see https://tools.ietf.org/html/rfc6749#section-3.2
           #
-          desc 'OAuth 2.0 Token Endpoint'
+          desc 'OAuth 2.0 Token Endpoint (To get access token via password, social_login or refresh_token mechanism)', {
+            headers: {"X-Desidime-Client" => {description: "Desidime-Client ID which is required for API access", 
+                                             required: true}},
+            tags: ['OAuth2']
+          }            
 
           params do
             use :oauth_token_params
@@ -30,7 +34,9 @@ module Grape
             body token_response.body
           end
 
-          desc 'OAuth 2.0 Token Revocation'
+          desc 'OAuth 2.0 Token Revocation', {
+            hidden: true
+          }
 
           params do
             use :oauth_token_revocation_params
