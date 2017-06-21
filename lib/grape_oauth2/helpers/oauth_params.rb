@@ -10,12 +10,17 @@ module Grape
         # Params are optional in order to process them correctly in accordance
         # with the RFC 6749 (invalid_client, unsupported_grant_type, etc.)
         params :oauth_token_params do
-          requires :grant_type, type: String, desc: 'Grant type', values: ['password', 'refresh_token', 'social_login']
+          requires :grant_type, type: String, desc: 'Grant type', enum: ['password', 'refresh_token', 'social_login']
           requires :client_id, type: String, desc: 'Client ID'
           requires :client_secret, type: String, desc: 'Client secret'
           optional :refresh_token, type: String, desc: 'Refresh Token'
           optional :username, type: String, desc: 'Username (Login id or email). Only for grant_type password'          
           optional :password, type: String, desc: 'Password of user. Only for grant_type password'
+          optional :email, type: String, desc: 'Email of user as per Social API. Only for grant_type social_login'
+          optional :provider, type: String, desc: 'Provider. Only for grant_type social_login', enum: ['facebook', 'open_id']
+          optional :uid, type: String, desc: 'UID provided by provider. Only for grant_type social_login'
+          optional :social_access_token, type: String, desc: 'Social Access Token provided by provider. Only for grant_type social_login'
+          
         end
 
         # Params for authorization request.
