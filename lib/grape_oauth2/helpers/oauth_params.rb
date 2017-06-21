@@ -10,9 +10,9 @@ module Grape
         # Params are optional in order to process them correctly in accordance
         # with the RFC 6749 (invalid_client, unsupported_grant_type, etc.)
         params :oauth_token_params do
-          required :grant_type, type: String, desc: 'Grant type', values: ['password', 'refresh_token', 'social_login']
-          required :client_id, type: String, desc: 'Client ID'
-          required :client_secret, type: String, desc: 'Client secret'
+          requires :grant_type, type: String, desc: 'Grant type', values: ['password', 'refresh_token', 'social_login']
+          requires :client_id, type: String, desc: 'Client ID'
+          requires :client_secret, type: String, desc: 'Client secret'
           optional :refresh_token, type: String, desc: 'Refresh Token'
           optional :username, type: String, desc: 'Username (Login id or email). Only for grant_type password'          
           optional :password, type: String, desc: 'Password of user. Only for grant_type password'
