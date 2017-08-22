@@ -14,8 +14,9 @@ module Grape
             refresh_token = config.access_token_class.authenticate(request.refresh_token, type: :refresh_token)
             request.invalid_grant! if refresh_token.nil?
             request.unauthorized_client! if refresh_token && refresh_token.client != client
-
-            token = config.access_token_class.create_for(client, refresh_token.resource_owner)
+            
+            token = config.access_token_class.create_for(client, refresh_token.resource_owner) if refresh_token.expired?
+            token = refresh_token if token.nil?
             run_on_refresh_callback(refresh_token) if config.on_refresh_runnable?
 
             expose_to_bearer_token(token)
