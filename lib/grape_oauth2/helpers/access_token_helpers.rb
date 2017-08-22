@@ -20,7 +20,7 @@ module Grape
           required_scopes = endpoint_scopes.presence || scopes
 
           raise Rack::OAuth2::Server::Resource::Bearer::Unauthorized if current_access_token.nil?
-          raise Rack::OAuth2::Server::Resource::Bearer::Forbidden unless valid_access_token?(required_scopes)
+          raise Rack::OAuth2::Server::Resource::Bearer::Unauthorized unless valid_access_token?(required_scopes)
         end
 
         # Returns Resource Owner from the Access Token
