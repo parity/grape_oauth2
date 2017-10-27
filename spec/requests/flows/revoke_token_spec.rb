@@ -6,7 +6,7 @@ describe 'Token Endpoint' do
       context 'with valid params' do
         let(:api_url) { '/api/v1/oauth/revoke' }
         let(:application) { Application.create(name: 'App1') }
-        let(:user) { User.create(username: 'test', password: '12345678') }
+        let(:user) { User.create(login: 'test', password: '12345678') }
 
         let(:headers) { { 'HTTP_AUTHORIZATION' => ('Basic ' + Base64::encode64("#{application.key}:#{application.secret}")) } }
 

@@ -43,7 +43,7 @@ end
 DB.create_table :users do
   primary_key :id
   column :name, String, size: 255
-  column :username, String, size: 255
+  column :login, String, size: 255
   column :created_at, DateTime
   column :updated_at, DateTime
   column :password_digest, String, size: 255

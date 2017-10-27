@@ -14,7 +14,7 @@ module Grape
           requires :client_id, type: String, desc: 'Client ID'
           requires :client_secret, type: String, desc: 'Client secret'
           optional :refresh_token, type: String, desc: 'Refresh Token'
-          optional :username, type: String, desc: 'Username (Login id or email). Only for grant_type password'          
+          optional :login, type: String, desc: 'Login (Login id or email). Only for grant_type password'          
           optional :password, type: String, desc: 'Password of user. Only for grant_type password'
           optional :email, type: String, desc: 'Email of user as per Social API. Only for grant_type social_login'
           optional :provider, type: String, desc: 'Provider. Only for grant_type social_login', values: ['facebook', 'open_id']

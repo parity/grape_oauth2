@@ -7,7 +7,7 @@ module Twitter
 
       resources :status do
         get do
-          { value: 'Nice day!', current_user: current_resource_owner.username }
+          { value: 'Nice day!', current_user: current_resource_owner.login }
         end
 
         get :single_scope, scopes: [:read] do

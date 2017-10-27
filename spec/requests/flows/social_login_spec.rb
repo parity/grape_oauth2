@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Token Endpoint' do
   let(:application) { Application.create(name: 'App1') }
-  let(:user) { User.create(username: 'test', password: '12345678') }
+  let(:user) { User.create(login: 'test', password: '12345678') }
 
   describe 'Resource Owner Social Login Credentials flow' do
     describe 'POST /oauth/token' do
@@ -28,7 +28,7 @@ describe 'Token Endpoint' do
           it 'fails with invalid Grant Type' do
             post authentication_url,
                  grant_type: 'invalid',
-                 username: user.username,
+                 login: user.login,
                  password: '12345678'
 
             expect(AccessToken.all).to be_empty

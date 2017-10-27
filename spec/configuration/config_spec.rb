@@ -38,7 +38,7 @@ describe Grape::OAuth2::Configuration do
   end
 
   class CustomResourceOwner
-    def self.oauth_authenticate(client, username, password)
+    def self.oauth_authenticate(client, login, password)
       'Test'
     end
   end

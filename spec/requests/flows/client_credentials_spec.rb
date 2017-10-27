@@ -6,7 +6,7 @@ describe 'Token Endpoint' do
       context 'with valid params' do
         let(:authentication_url) { '/api/v1/oauth/token' }
         let(:application) { Application.create(name: 'App1') }
-        let(:user) { User.create(username: 'test', password: '12345678') }
+        let(:user) { User.create(login: 'test', password: '12345678') }
 
         context 'when request is invalid' do
           it 'fails without Grant Type' do

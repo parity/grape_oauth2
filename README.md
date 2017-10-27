@@ -149,17 +149,17 @@ As you know, OAuth2 workflow implies the existence of the next three roles: **Ac
 So your project must include 3 classes (models) - _AccessToken_, _Application_ and _User_ for example. The gem needs to know
 what classes it work, so you need to create them and configure `Grape::OAuth2`.
 
-`resource_owner_class` must have a `self.oauth_authenticate(client, username, password)` method, that returns an instance of the
-class if authentication successful (`username` and `password` matches for example) and `false` or `nil` in other cases.
+`resource_owner_class` must have a `self.oauth_authenticate(client, login, password)` method, that returns an instance of the
+class if authentication successful (`login` and `password` matches for example) and `false` or `nil` in other cases.
 
 ```ruby
 # app/models/user.rb
 class User < ApplicationRecord
   has_secure_password
 
-  def self.oauth_authenticate(_client, username, password)
-    # find the user by it username
-    user = find_by(username: username)
+  def self.oauth_authenticate(_client, login, password)
+    # find the user by it login
+    user = find_by(login: login)
     return if user.nil?
 
     # check the password
@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(version: 3) do
   # All the columns are custom
   create_table :users do |t|
     t.string :name
-    t.string :username
+    t.string :login
     t.string :password_digest
   end
 
@@ -278,7 +278,7 @@ end
 DB.create_table :users do
   primary_key :id
   column :name, String, size: 255
-  column :username, String, size: 255
+  column :login, String, size: 255
   column :created_at, DateTime
   column :updated_at, DateTime
   column :password_digest, String, size: 255
@@ -303,11 +303,11 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :username, type: String
+  field :login, type: String
   field :password, type: String
 
-  def self.oauth_authenticate(_client, username, password)
-    find_by(username: username, password: password)
+  def self.oauth_authenticate(_client, login, password)
+    find_by(login: login, password: password)
   end
 end
 ```
@@ -402,14 +402,14 @@ to understand what they are doing and what they are returning.
 #### ResourceOwner
 
 As was said before, Resource Owner class (`User` model for example) must contain only one class method
-(**only for** Password Authorization Grant): `self.oauth_authenticate(client, username, password)`.
+(**only for** Password Authorization Grant): `self.oauth_authenticate(client, login, password)`.
 
 ```ruby
 class User
   # ...
 
-  def self.oauth_authenticate(client, username, password)
-    # Returns an instance of the User class with matching username
+  def self.oauth_authenticate(client, login, password)
+    # Returns an instance of the User class with matching login
     # and password. If there is no such User or password doesn't match
     # then returns nil.
   end
@@ -439,8 +439,8 @@ class User < ApplicationRecord
   has_secure_password
 
   # Don't forget to setup this method for your Resource Owner model!
-  def self.oauth_authenticate(_client, username, password)
-    user = find_by(username: username)
+  def self.oauth_authenticate(_client, login, password)
+    user = find_by(login: login)
     return if user.nil?
 
     user.authenticate(password)
@@ -627,7 +627,7 @@ module MyAPI
           # resource_owner = Grape::OAuth2::Strategies::Base.authenticate_resource_owner(client, request)
 
           # Or define your custom resource owner authentication:
-          resource_owner = User.find_by(username: request.username)
+          resource_owner = User.find_by(login: request.login)
           request.invalid_grant! if resource_owner.nil? || resource_owner.inactive?
 
           # You can create an Access Token as you want:

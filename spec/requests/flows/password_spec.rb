@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Token Endpoint' do
   let(:application) { Application.create(name: 'App1') }
-  let(:user) { User.create(username: 'test', password: '12345678') }
+  let(:user) { User.create(login: 'test', password: '12345678') }
 
   describe 'Resource Owner Password Credentials flow' do
     describe 'POST /oauth/token' do
@@ -12,7 +12,7 @@ describe 'Token Endpoint' do
         context 'when request is invalid' do
           it 'fails without Grant Type' do
             post authentication_url,
-                 username: user.username,
+                 login: user.login,
                  password: '12345678',
                  client_id: application.key,
                  client_secret: application.secret
@@ -26,7 +26,7 @@ describe 'Token Endpoint' do
           it 'fails with invalid Grant Type' do
             post authentication_url,
                  grant_type: 'invalid',
-                 username: user.username,
+                 login: user.login,
                  password: '12345678'
 
             expect(AccessToken.all).to be_empty
@@ -38,7 +38,7 @@ describe 'Token Endpoint' do
           it 'fails without Client Credentials' do
             post authentication_url,
                  grant_type: 'password',
-                 username: user.username,
+                 login: user.login,
                  password: '12345678'
 
             expect(AccessToken.all).to be_empty
@@ -50,7 +50,7 @@ describe 'Token Endpoint' do
           it 'fails with invalid Client Credentials' do
             post authentication_url,
                  grant_type: 'password',
-                 username: user.username,
+                 login: user.login,
                  password: '12345678',
                  client_id: 'blah-blah',
                  client_secret: application.secret
@@ -75,7 +75,7 @@ describe 'Token Endpoint' do
           it 'fails with invalid Resource Owner credentials' do
             post authentication_url,
                  grant_type: 'password',
-                 username: 'invalid@example.com',
+                 login: 'invalid@example.com',
                  password: 'invalid',
                  client_id: application.key,
                  client_secret: application.secret
@@ -91,7 +91,7 @@ describe 'Token Endpoint' do
             it 'returns an Access Token with scopes' do
               post authentication_url,
                    grant_type: 'password',
-                   username: user.username,
+                   login: user.login,
                    password: '12345678',
                    scope: 'read write',
                    client_id: application.key,
@@ -114,7 +114,7 @@ describe 'Token Endpoint' do
             it 'returns an Access Token without scopes' do
               post authentication_url,
                    grant_type: 'password',
-                   username: user.username,
+                   login: user.login,
                    password: '12345678',
                    client_id: application.key,
                    client_secret: application.secret
@@ -155,7 +155,7 @@ describe 'Token Endpoint' do
           it 'returns 404' do
             post authentication_url,
                  grant_type: 'password',
-                 username: user.username,
+                 login: user.login,
                  password: '12345678',
                  client_id: application.key,
                  client_secret: application.secret
@@ -174,7 +174,7 @@ describe 'Token Endpoint' do
 
         post '/api/v1/oauth/custom_token',
              grant_type: 'password',
-             username: user.username,
+             login: user.login,
              password: '12345678',
              client_id: application.key,
              client_secret: application.secret
@@ -196,7 +196,7 @@ describe 'Token Endpoint' do
 
         post '/api/v1/oauth/custom_token',
              grant_type: 'password',
-             username: 'invalid@example.com',
+             login: 'invalid@example.com',
              password: 'invalid',
              client_id: application.key,
              client_secret: application.secret

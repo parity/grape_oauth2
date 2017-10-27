@@ -13,7 +13,7 @@ module Grape
 
           # Authenticates Resource Owner from the request.
           def authenticate_resource_owner(client, request)
-            config.resource_owner_class.oauth_authenticate(client, request.username, request.password)
+            config.resource_owner_class.oauth_authenticate(client, request.login, request.password)
           end
           
           # Authenticates Resource Owner from the request via Social Login.

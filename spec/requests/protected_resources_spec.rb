@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'GET Protected Resources' do
   let(:application) { Application.create(name: 'App1') }
-  let(:user) { User.create(username: 'Jack Sparrow', password: '12345678') }
+  let(:user) { User.create(login: 'Jack Sparrow', password: '12345678') }
   let(:access_token) { AccessToken.create_for(application, user) }
 
   context 'with invalid data' do

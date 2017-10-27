@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Grape::OAuth2::Mongoid::AccessToken', skip_if: ENV['ORM'] != 'mongoid' do
   let(:application) { Application.create(name: 'Test') }
-  let(:user) { User.create(username: 'test', password: '123123') }
+  let(:user) { User.create(login: 'test', password: '123123') }
   let(:access_token) { AccessToken.create(client: application, resource_owner: user) }
 
   let(:token) { SecureRandom.hex(16) }
