@@ -53,7 +53,7 @@ module Grape
               access_token: token,
               expires_in: expires_at && Grape::OAuth2.config.access_token_lifetime.to_i,
               refresh_token: refresh_token,
-              created_at: created_at.to_i
+              created_at: created_at.to_i,
               scope: scopes
             }
           end
