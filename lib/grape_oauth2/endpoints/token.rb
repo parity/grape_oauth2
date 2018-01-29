@@ -6,7 +6,7 @@ module Grape
       class Token < ::Grape::API
         helpers Grape::OAuth2::Helpers::OAuthParams
 
-        namespace :oauth do
+        namespace 'v4/oauth' do
           # @see https://tools.ietf.org/html/rfc6749#section-3.2
           #
           desc 'OAuth 2.0 Token Endpoint (To get access token via password, social_login or refresh_token mechanism)', {
