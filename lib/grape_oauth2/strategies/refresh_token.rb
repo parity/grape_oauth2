@@ -12,7 +12,8 @@ module Grape
             request.invalid_client! if client.nil?
 
             refresh_token = config.access_token_class.authenticate(request.refresh_token, type: :refresh_token)
-            request.invalid_grant! if refresh_token.nil?
+            # request.invalid_grant! if refresh_token.nil?
+            request.unauthorized!('invalid refresh token') if refresh_token.nil?
             request.unauthorized_client! if refresh_token && refresh_token.client != client
             
             token = config.access_token_class.create_for(client, refresh_token.resource_owner) if refresh_token.expired?

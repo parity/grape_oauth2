@@ -15,7 +15,8 @@ module Twitter
             request.invalid_client! if client.nil? || client.name != 'Admin'
 
             resource_owner = Grape::OAuth2::Strategies::Base.authenticate_resource_owner(client, request)
-            request.invalid_grant! if resource_owner.nil?
+            # request.invalid_grant! if resource_owner.nil?
+            request.unauthorized!('invalid id or password') if resource_owner.nil?
 
             token = AccessToken.create_for(client, resource_owner, request.scope.join(' '))
             response.access_token = Grape::OAuth2::Strategies::Base.expose_to_bearer_token(token)
