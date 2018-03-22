@@ -9,7 +9,7 @@ module Grape
           def process(request)
             client = authenticate_client(request) || request.invalid_client!
             # resource_owner = authenticate_resource_owner_social(client, request)
-            response = authenticate_resource_owner(client, request)
+            response = authenticate_resource_owner_social(client, request)
             request.unauthorized!('Username or Password is invalid.') if response.blank? 
 
             # request.invalid_grant! if resource_owner.nil?
